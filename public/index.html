@@ -1,22 +1,21 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>呼叫三体人</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>呼叫按钮</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div id="overlay">
     <div id="nameModal">
-      <p>请输入你的名字（可匿名）：</p>
-      <input type="text" id="username" placeholder="匿名">
+      <p>你将呼叫三体人<br>请输入你的名字（可匿名）：</p>
+      <input type="text" id="username" placeholder="匿名" />
       <button id="submitName">进入</button>
     </div>
   </div>
 
-  <div class="container" style="display: none;">
-    <button id="callButton">☄️ 呼叫三体人</button>
-  </div>
+  <button id="callButton"></button>
 
   <script src="script.js"></script>
 </body>
