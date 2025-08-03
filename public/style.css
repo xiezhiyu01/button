@@ -1,0 +1,25 @@
+/* style.css */
+body {
+  background-color: #000;
+  color: white;
+  text-align: center;
+  font-family: sans-serif;
+  height: 100vh;
+  margin: 0;
+}
+
+#callButton {
+  margin-top: 30vh;
+  padding: 20px 40px;
+  font-size: 24px;
+  background: linear-gradient(145deg, #ff0000, #7f0000);
+  border: none;
+  color: white;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 8px 16px rgba(255, 0, 0, 0.6);
+}
+
+#callButton:hover {
+  background: linear-gradient(145deg, #ff3333, #990000);
+}
