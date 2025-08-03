@@ -1,4 +1,3 @@
-// api/call.js
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
@@ -9,10 +8,10 @@ const supabase = createClient(
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
-  const { name } = await req.json();
+  const { name } = req.body || {};  // ✅ 正确方式
+
   if (!name) return res.status(400).json({ error: 'Missing name' });
 
-  // 查询当前点击数
   const { data, error: readError } = await supabase
     .from('calls')
     .select('count')
@@ -21,14 +20,10 @@ export default async function handler(req, res) {
 
   const newCount = data ? data.count + 1 : 1;
 
-  // 插入或更新
   const { error: writeError } = await supabase
     .from('calls')
-    .upsert(
-      [{ name, count: newCount }],
-      { onConflict: 'name' }  // 依赖 name 是 unique
-    );
+    .upsert([{ name, count: newCount }], { onConflict: 'name' });
 
   if (writeError) return res.status(500).json({ error: writeError });
-  return res.status(204).end(); // 无反馈（保持神秘）
+  return res.status(204).end();
 }
