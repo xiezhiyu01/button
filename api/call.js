@@ -1,22 +1,30 @@
+// api/call.js
 import { createClient } from '@supabase/supabase-js';
+import getRawBody from 'raw-body';
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_ANON_KEY
 );
 
+export const config = {
+  api: {
+    bodyParser: false // ⛔️ 禁用自动解析，手动处理 JSON
+  }
+};
+
 export default async function handler(req, res) {
   try {
     if (req.method !== 'POST') {
-      console.warn("Method not allowed:", req.method);
+      console.log('❌ Method not allowed:', req.method);
       return res.status(405).end();
     }
 
-    console.log("Received request:", req.body);
+    const rawBody = await getRawBody(req);
+    const { name } = JSON.parse(rawBody.toString());
 
-    const { name } = req.body || {};
     if (!name) {
-      console.error("Missing name in request body");
+      console.log('❌ Missing name');
       return res.status(400).json({ error: 'Missing name' });
     }
 
@@ -27,7 +35,7 @@ export default async function handler(req, res) {
       .single();
 
     if (readError && readError.code !== 'PGRST116') {
-      console.error("Supabase read error:", readError);
+      console.log('❌ Supabase read error:', readError);
       return res.status(500).json({ error: readError });
     }
 
@@ -38,15 +46,15 @@ export default async function handler(req, res) {
       .upsert([{ name, count: newCount }], { onConflict: 'name' });
 
     if (writeError) {
-      console.error("Supabase write error:", writeError);
+      console.log('❌ Supabase write error:', writeError);
       return res.status(500).json({ error: writeError });
     }
 
-    console.log(`Updated count for ${name}: ${newCount}`);
+    console.log(`✅ ${name} called, new count: ${newCount}`);
     return res.status(204).end();
 
   } catch (err) {
-    console.error("Unexpected error in handler:", err);
+    console.log('🔥 Unexpected error:', err);
     return res.status(500).json({ error: 'Unexpected server error' });
   }
 }
