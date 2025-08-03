@@ -42,7 +42,7 @@ export default async function handler(req, res) {
     const newCount = data ? data.count + 1 : 1;
 
     const { error: writeError } = await supabase
-      .from('calls')
+      .from('Calls_Boring')
       .upsert([{ name, count: newCount }], { onConflict: 'name' });
 
     if (writeError) {
