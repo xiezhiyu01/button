@@ -29,7 +29,7 @@ export default async function handler(req, res) {
     }
 
     const { data, error: readError } = await supabase
-      .from('calls')
+      .from('Calls_Boring')
       .select('count')
       .eq('name', name)
       .single();
