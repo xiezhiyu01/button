@@ -8,10 +8,27 @@
 </head>
 <body>
   <div id="overlay">
+    <!-- 第一个弹窗 -->
     <div id="nameModal">
-      <p>你可以选择呼叫三体人毁灭地球<br>请输入你的名字（可匿名）：</p>
+      <p>请输入你的名字（可匿名）：</p>
       <input type="text" id="username" placeholder="匿名" />
+      
+      <p>你可以选择呼叫三体人</p>
       <button id="submitName">进入</button>
+
+      <!-- 新增：保卫地球入口 -->
+      <div class="alt-action">
+        <button id="protectEntry" class="linklike">不，我要保卫地球！</button>
+      </div>
+    </div>
+
+    <!-- 新增：第二个弹窗（确认保卫地球） -->
+    <div id="protectModal" class="hidden">
+      <p>你似乎想保卫地球。你确定吗？</p>
+      <div class="row">
+        <button id="protectConfirm" class="btn-danger">确定</button>
+        <button id="protectCancel" class="btn-ghost">取消</button>
+      </div>
     </div>
   </div>
 
@@ -19,4 +36,5 @@
 
   <script src="script.js"></script>
 </body>
+
 </html>
