@@ -44,3 +44,16 @@ document.getElementById("protectConfirm").onclick = () => {
   }).catch(() => {});
   // 不做任何 UI 变化（不关闭弹窗、不弹提示）
 };
+
+async function refreshTotals() {
+  try {
+    const r = await fetch('/api/totals');
+    if (!r.ok) return;
+    const { call, protect } = await r.json();
+    const el = document.getElementById('totals');
+    el.textContent = `呼叫：${call} 次   |   保卫：${protect} 次`;
+  } catch (_) {}
+}
+document.getElementById('totals').addEventListener('click', refreshTotals);
+refreshTotals();
+setInterval(refreshTotals, 10000); // 每 10 秒刷新一次
