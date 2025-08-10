@@ -127,3 +127,18 @@ body {
   border-radius: 8px;
   cursor: pointer;
 }
+
+/* 一行小字链接样式 */
+.alt-action {
+  margin-top: 10px;
+}
+.text-link {
+  font-size: 13px;
+  color: #777;
+  cursor: pointer;
+  user-select: none;
+}
+.text-link:hover {
+  color: #333;              /* 悬停变深，显得可点击 */
+  text-decoration: underline;
+}
